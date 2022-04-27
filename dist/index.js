@@ -68,9 +68,9 @@ function mapArch(arch) {
 // return value in [darwin, linux, windows]
 function mapOS(os) {
   const mappings = {
-    win32: 'windows',
-    win64: 'windows',
-    darwin: 'macos'
+    win32: 'win',
+    win64: 'win',
+    darwin: 'osx'
   };
   return mappings[os] || os;
 }
@@ -84,13 +84,13 @@ function getDownloadObject(version) {
 
   console.log('OS Type is ' + osType);
 
-  const filename = `cli_${ version }-${ osType }-${ mapArch(os.arch()) }`;
+  const filename = `cli-${ version }-${ osType }-${ mapArch(os.arch()) }`;
 
   console.log('Filename is ' + filename);
 
   const extension = osType === 'windows' ? 'zip' : 'tar.gz';
   const binPath = filename;
-  const url = `https://github.com/az-acme/az-acme-cli/releases/download/${ version }/${ filename }.${ extension }`;
+  const url = `https://github.com/az-acme/az-acme-cli/releases/download/v${ version }/${ filename }.${ extension }`;
 
   console.log('Download from ' + url)
 
