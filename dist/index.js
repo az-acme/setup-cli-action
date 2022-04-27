@@ -8,6 +8,7 @@ require('./sourcemap-register.js');module.exports =
 const path = __webpack_require__(5622);
 const core = __webpack_require__(2186);
 const tc = __webpack_require__(7784);
+var fs = __webpack_require__(5747);
 const { getDownloadObject } = __webpack_require__(918);
 
 async function setup() {
@@ -15,21 +16,29 @@ async function setup() {
     // Get version of tool to be installed
     const version = core.getInput('version');
 
-    console.log('Version is ' + version);
-
     // Download the specific version of the tool, e.g. as a tarball/zipball
     const download = getDownloadObject(version);
-
-    console.log('download', download);
-
     const pathToTarball = await tc.downloadTool(download.url);
 
-    console.log('Path to tarball is ' + pathToTarball);
     // Extract the tarball/zipball onto host runner
     const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
     const pathToCLI = await extract(pathToTarball);
 
-    console.log('Path to CLI is ' + pathToCLI);
+    //joining path of directory 
+    var directoryPath = pathToCLI;
+    //passsing directoryPath and callback function
+    fs.readdir(directoryPath, function (err, files) {
+        //handling error
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        } 
+        //listing all files using forEach
+        files.forEach(function (file) {
+            // Do whatever you want to do with the file
+            console.log(file); 
+        });
+    });
+
 
     // Expose the tool by adding it to the PATH
     core.addPath(path.join(pathToCLI, download.binPath));
