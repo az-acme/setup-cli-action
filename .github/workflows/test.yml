@@ -37,6 +37,20 @@ jobs:
       with:
         version: ${{ matrix.version }}
 
-    - name: Run
+    - name: Run Version 
       run: |
         ${{ matrix.binary }} --version
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Register with Staging
+      run: |
+        ${{ matrix.binary }} register \
+        --server https://acme-staging-v02.api.letsencrypt.org/directory \
+        --key-vault-uri https://kvazacmedev.vault.azure.net/ \
+        --account-secret demo-${{ matrix.kind }}-letsencrypt-stg-registration \
+        --email demo@azacme.dev \
+        --force-registration \
+        --agree-tos
