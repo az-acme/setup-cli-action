@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        version: [0.1-alpha]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup CLI
+      uses: ./
+      with:
+        version: ${{ matrix.version }}
