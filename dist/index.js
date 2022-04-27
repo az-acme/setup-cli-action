@@ -68,9 +68,9 @@ function mapOS(os) {
 
 function getDownloadObject(version) {
   const platform = os.platform();
-  const os = mapOS(platform);
-  const filename = `cli_${ version }_${ os }_${ mapArch(os.arch()) }`;
-  const extension = os === 'windows' ? 'zip' : 'tar.gz';
+  const osType = mapOS(platform);
+  const filename = `cli_${ version }_${ osType }_${ mapArch(os.arch()) }`;
+  const extension = osType === 'windows' ? 'zip' : 'tar.gz';
   const binPath = filename;
   const url = `https://github.com/az-acme/az-acme-cli/releases/download/${ version }/${ filename }.${ extension }`;
   return {
