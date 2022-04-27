@@ -1,5 +1,8 @@
-name: setup-cli
-description: Setup Az-Acme CLI on GitHub Actions runners
+name: 'Setup Az-Acme CLI'
+description: 'Setup Az-Acme CLI on GitHub Actions runner'
+branding:
+  icon: award
+  color: blue
 inputs:
   version:
     description: Version of CLI to install
