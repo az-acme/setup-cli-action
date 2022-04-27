@@ -27,6 +27,6 @@ jobs:
       with:
         version: ${{ matrix.version }}
 
-- name: Get Version
+    - name: Run
       run: |
         az-acme --version
