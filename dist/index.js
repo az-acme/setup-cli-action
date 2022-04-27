@@ -19,6 +19,9 @@ async function setup() {
 
     // Download the specific version of the tool, e.g. as a tarball/zipball
     const download = getDownloadObject(version);
+
+    console.log('download', download);
+
     const pathToTarball = await tc.downloadTool(download.url);
 
     console.log('Path to tarball is ' + pathToTarball);
@@ -81,13 +84,16 @@ function getDownloadObject(version) {
 
   console.log('OS Type is ' + osType);
 
-  const filename = `cli_${ version }_${ osType }_${ mapArch(os.arch()) }`;
+  const filename = `cli_${ version }-${ osType }-${ mapArch(os.arch()) }`;
 
   console.log('Filename is ' + filename);
 
   const extension = osType === 'windows' ? 'zip' : 'tar.gz';
   const binPath = filename;
   const url = `https://github.com/az-acme/az-acme-cli/releases/download/${ version }/${ filename }.${ extension }`;
+
+  console.log('Download from ' + url)
+
   return {
     url,
     binPath
