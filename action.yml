@@ -1,10 +1,10 @@
-name: setup-gh
-description: Setup GitHub CLI, gh, on GitHub Actions runners
+name: setup-cli
+description: Setup Az-Acme CLI on GitHub Actions runners
 inputs:
   version:
-    description: Version of GitHub CLI to install
+    description: Version of CLI to install
     required: false
-    default: 1.2.0
+    default: 0.1-beta
 runs:
   using: node12
   main: dist/index.js
