@@ -38,6 +38,12 @@ async function setup() {
 
 
     // Expose the tool by adding it to the PATH
+    if(download.osType === 'win'){
+      core.addPath(pathToCLI);
+    } else {
+      core.addPath(path.join(pathToCLI, download.binPath));
+    }
+    
     core.addPath(path.join(pathToCLI, download.binPath));
   } catch (e) {
     core.setFailed(e);

@@ -45,6 +45,12 @@ async function setup() {
 
 
     // Expose the tool by adding it to the PATH
+    if(download.osType === 'win'){
+      core.addPath(pathToCLI);
+    } else {
+      core.addPath(path.join(pathToCLI, download.binPath));
+    }
+    
     core.addPath(path.join(pathToCLI, download.binPath));
   } catch (e) {
     core.setFailed(e);
@@ -93,14 +99,13 @@ function getDownloadObject(version) {
   const osType = mapOS(platform);
   const filename = `cli-v${ version }-${ osType }-${ mapArch(os.arch()) }`;
   const extension = osType === 'win' ? 'zip' : 'tar.gz';
-  const binPath = platform === 'win' ? '' : filename;
+  const binPath = filename;
   const url = `https://github.com/az-acme/az-acme-cli/releases/download/v${ version }/${ filename }.${ extension }`;
-
-  console.log('Download from ' + url)
 
   return {
     url,
-    binPath
+    binPath,
+    osType
   };
 }
 
