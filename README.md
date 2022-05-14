@@ -7,7 +7,7 @@ A specific version of the `az-acme` CLI can be installed. See releases page for 
 
 ```yaml
 steps:
-- uses: az-acme/setup-cli-actionh@v1
+- uses: az-acme/setup-cli-action@v1
   with:
     version: 0.2
 ```
