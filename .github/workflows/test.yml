@@ -1,5 +1,9 @@
 name: Tests
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
 on:
   push:
     branches:
@@ -40,10 +44,13 @@ jobs:
     - name: Run Version 
       run: |
         ${{ matrix.binary }} --version
-
-    - uses: azure/login@v1
+        
+    - name: 'Az CLI login'
+      uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     - name: Register with Staging
       run: |
