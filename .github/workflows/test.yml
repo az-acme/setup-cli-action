@@ -21,6 +21,7 @@ jobs:
     strategy:
       matrix:
         kind: ['linux', 'windows', 'macOS']
+        version: [0.4]
         include:
           - kind: linux
             os: ubuntu-latest
@@ -31,7 +32,7 @@ jobs:
           - kind: macOS
             os: macos-latest
             binary: az-acme
-        version: [0.2,0.4]
+        
     steps:
     - name: Checkout
       uses: actions/checkout@v2
